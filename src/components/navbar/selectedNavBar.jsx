@@ -1,23 +1,24 @@
 import React from 'react';
 import { useEffect,useState } from 'react';
 import { StickyNavbar } from './NavBarCommon';
-const  SelectedNavBar = ({selected}) => {
-    const [names,setNames]=useState({});
-    const [links,setLinks]=useState({});
+import { NavbarForDropdownWithMultipleLanguages } from './NavBarDropDownLang';
+const  SelectedNavBar = ({selected,selectedNames}) => {
+    
 
-    useEffect(()=>{
-        if(selected == "sticky"){
-          const generatedStickyNames= generateNamesStick();
-          const generatedStickyLinks= generateLinksStick();
+    
 
-        }
-    },[selected]);
+        
      
    return (
     <>
     {
       selected && selected == "sticky" && (
-            <StickyNavbar/>
+            <StickyNavbar selectedNames={selectedNames}/>
+        )
+    }
+    {
+        selected && selected == "language" && (
+            <NavbarForDropdownWithMultipleLanguages selectedNames={selectedNames} />
         )
     }
     </>
