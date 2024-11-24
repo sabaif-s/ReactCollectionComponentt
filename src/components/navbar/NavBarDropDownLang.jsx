@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect,useState } from "react";
 import {
   Navbar,
   Collapse,
@@ -17,10 +17,10 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
  
-export function NavbarForDropdownWithMultipleLanguages({selectedNames}) {
-  const [openMenu, setOpenMenu] = React.useState(false);
-  const [openNav, setOpenNav] = React.useState(false);
-  const [lang, setLang] = React.useState("English");
+export default function NavbarForDropdownWithMultipleLanguages({selectedNames}) {
+  const [openMenu, setOpenMenu] = useState(false);
+  const [openNav, setOpenNav] = useState(false);
+  const [lang, setLang] = useState("English");
  
   React.useEffect(() => {
     window.addEventListener(
@@ -28,6 +28,9 @@ export function NavbarForDropdownWithMultipleLanguages({selectedNames}) {
       () => window.innerWidth >= 960 && setOpenNav(false),
     );
   }, []);
+  useEffect(()=>{
+           console.log("drop down language");
+  },[]);
  
   const navList = (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">

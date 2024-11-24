@@ -9,7 +9,7 @@ import {
 } from "@material-tailwind/react";
 import { useState,useEffect } from "react";
  
-export function StickyNavbar({selectedNames}) {
+export default function StickyNavbar({selectedNames}) {
   const [openNav, setOpenNav] = useState(false);
  
   useEffect(() => {
@@ -18,6 +18,9 @@ export function StickyNavbar({selectedNames}) {
       () => window.innerWidth >= 960 && setOpenNav(false),
     );
   }, []);
+  useEffect(()=>{
+      console.log("common loaded");
+  },[]);
  
   const navList = (
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
