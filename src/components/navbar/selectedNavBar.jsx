@@ -8,8 +8,15 @@ const  SelectedNavBar = ({selected,selectedNames}) => {
     const SearchNavBar=lazy(()=> import('./NavBarSearch'));
     const LanguageNavBar=lazy(()=> import('./NavBarDropDownLang'));
     const MegaMenuNavBar=lazy(()=> import('./NavBarMegaMenu'));
+    const AvatarNavBar=lazy(()=>import('./NavBarAvatar'));
+    const [imagePath,setImagePath]=useState("");
 
-    
+    useEffect(()=>{
+        if(selected == "avatar"){
+            const imagePath2='/sabk.jpeg';
+            setImagePath(imagePath2);
+        }
+    },[selected]);
 
         
      
@@ -40,6 +47,13 @@ const  SelectedNavBar = ({selected,selectedNames}) => {
         selected && selected == "megaMenu" && (
             <Suspense fallback={<div></div>}>
             <MegaMenuNavBar selectedNames={selectedNames} />
+          </Suspense>
+        )
+    }
+     {
+        selected && selected == "avatar" && (
+            <Suspense fallback={<div></div>}>
+            <AvatarNavBar imagePath={imagePath} selectedNames={selectedNames} />
           </Suspense>
         )
     }

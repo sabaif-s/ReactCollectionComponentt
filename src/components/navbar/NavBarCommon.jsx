@@ -30,7 +30,7 @@ export default function StickyNavbar({selectedNames}) {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <a href="#" className="flex items-center">
+        <a href={`#${selectedNames.firstNameLink}`} className="flex items-center">
           {selectedNames.firstNameLink}
         </a>
       </Typography>
@@ -40,7 +40,7 @@ export default function StickyNavbar({selectedNames}) {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <a href="#" className="flex items-center">
+        <a href={`#${selectedNames.secondNameLink}`} className="flex items-center">
         {selectedNames.secondNameLink}
         </a>
       </Typography>
@@ -50,7 +50,7 @@ export default function StickyNavbar({selectedNames}) {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <a href="#" className="flex items-center">
+        <a href={`#${selectedNames.thirdNameLink}`}className="flex items-center">
         {selectedNames.thirdNameLink}
         </a>
       </Typography>
@@ -60,7 +60,7 @@ export default function StickyNavbar({selectedNames}) {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <a href="#" className="flex items-center">
+       <a href={`#${selectedNames.fourthNameLink}`}className="flex items-center">
         {selectedNames.fourthNameLink}
         </a>
       </Typography>
