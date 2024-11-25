@@ -12,9 +12,8 @@ const  HomePageOne = () => {
     const [showContent,setShowContent]=useState(false);
      const [startAnimation,setStartAnimation]=useState(false);
     const [blogLoaded,setBlogLoaded]=useState(false);
-   
-   
-
+    const [slideRightFirst,setSlideRightFirst]=useState(false);
+    const [animateLargeBlogImage,setAnimateLargeBlogImage]=useState(false);
    
     // useEffect(() => {
     //   function preloadImages(imageUrls) {
@@ -41,16 +40,25 @@ const  HomePageOne = () => {
     //    }
      
     // }, [images]);
+    useEffect(()=>{
+           if(startAnimation){
+            console.log("Start Animation");
+            setTimeout(()=>{
+            setSlideRightFirst(true);
+             
+            },1000);
+           }
+    },[startAnimation]);
     return (
       <>
       {
-        !showBack && (
+        !showBack && blogLoaded && (
           <div className='w-full h-full bg-gray-400' >
 
           </div>
         )
       }
-        <div className={` w-full ${showBack ? "":"hidden"} absolute flex pb-10  bottom-0 bg-black `} style={{height:"calc(100vh - 50px)" }}  >
+        <div className={` w-full ${showBack && blogLoaded ? "":"hidden"} absolute flex pb-10  bottom-0 bg-black `} style={{height:"calc(100vh - 50px)" }}  >
             <img
             onLoad={()=>{
                 setTimeout(()=>{
@@ -60,7 +68,7 @@ const  HomePageOne = () => {
                         setTimeout(()=>{
                          setShowContent(true);
                          setStartAnimation(true);
-                        },2000);
+                        },2200);
                     },2500);
                 },1000);
                 console.log("back loaded");
@@ -90,7 +98,7 @@ const  HomePageOne = () => {
             showAnother && (
                 <>
                  
-                 <div className={` ${showContent ? "animate-fadeIn":"opacity-0"} w-1/6    pl-6 flex flex-col z-10`} >
+                 <div className={` ${slideRightFirst ? "animate-fadeIn animate-slideRight":"opacity-0"} w-1/6    pl-6 flex flex-col z-10`} >
                      <div className='w-full h-1/2 ' >
                           <div className='w-full h-2/3  flex flex-col justify-center items-start' >
                             <div className='' ><span className='text-8xl text-white ' >. .</span></div>
@@ -132,14 +140,14 @@ const  HomePageOne = () => {
                       </div>
 </div>
             </div>
-            <div className={` ${showContent ? "animate-fadeIn":"opacity-0"} w-2/6 text-white flex flex-col z-10`} >
+            <div className={` ${showContent ? "animate-fadeIn animate-slideDown":"opacity-0"} w-2/6 text-white flex flex-col z-10`} >
                      <div className='w-full h-1/2  pb-10 flex justify-center items-end' >
                          <div className='w-full h-1/3 bg-gray-200 flex justify-center items-center overflow-x-hidden' >
                          <h2 className="text-2xl font-semibold text-gray-700 mb-4 absolute z-10">News Feed</h2>
                          <div className='space-y-4 w-full z-20' >
                          <div  className="bg-white p-4 rounded-lg shadow-md">
               <h3 className="text-xl text-center font-medium text-gray-800">SABOO</h3>
-              <p className="text-gray-600 mt-2 w-full word-break">SABAA Akkam Nagahaa Jirtaa wanti Hunduu 
+              <p className="text-gray-600 mt-2 w-full word-break animate-colorChange">SABAA Akkam Nagahaa Jirtaa wanti Hunduu 
                 Nagaadhaamii maaltu jira wanti haarofni kanaaf jabaadhu
               </p>
               <a href="#" target="_blank" rel="noopener noreferrer" className="text-blue-500 mt-2 inline-block">
@@ -154,7 +162,7 @@ const  HomePageOne = () => {
                                   March 17, Nov 2024
                               </div>
                                <div className='w-full h-1/2  pl-6 pt-2 pr-12 overflow-hidden' >
-                                        <span className='w-full word-break text-2xl ' >
+                                        <span className='w-full word-break text-2xl animate-colorChange2 ' >
                                               China invest more than 2000 dollar
                                               For Investment Reason To Make Economic Growth Of Thousand 
                                               Years Of Economic Depression
@@ -171,7 +179,7 @@ const  HomePageOne = () => {
 
 </div>
             </div>
-            <div className={`w-2/6 text-white  flex flex-col z-10 ${showContent ? "animate-fadeIn":"opacity-0"} `} >
+            <div className={`w-2/6 text-white  flex flex-col z-10 ${showContent ? "animate-fadeIn animate-slideUp":"opacity-0"} `} >
                   <div className='w-full h-1/2 pb-10  flex flex-col justify-end items-center' >
                          <div className='w-2/3 h-1/3  overflow-hidden pl-2 pr-6 pb-6 mb-6' >
                               <span className='w-full word-break' >
