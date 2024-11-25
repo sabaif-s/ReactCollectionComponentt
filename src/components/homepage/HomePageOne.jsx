@@ -20,13 +20,13 @@ const  HomePageOne = () => {
     const [newsLoaded,setNewsLoaded]=useState(false);
     const [activateInterval,setActivateInterval]=useState(0);
     const [currentBlog,setCurrentBlog]=useState(0);
+    const [readySecondVideo,setReadySecondVideo]=useState(false);
     const blogImageCollection=[blogImage,newsImage,warImage];
-    const upperTextCollection=["SABAA Akkam Nagahaa Jirtaa wanti Hunduu Nagaadhaamii maaltu jira wanti haarofni kanaaf jabaadhu",
-      "lorem ipsum new second texts of Saboo News NEW","SABAA UMAR MUHAMMED 3 FROM BAALEE OROMIA"
+    const upperTextCollection=[ {title:"SABOO" ,text:"SABAA Akkam Nagahaa Jirtaa wanti Hunduu Nagaadhaamii maaltu jira wanti haarofni kanaaf jabaadhu"} ,
+      {title:"lorem ipsum" , text: "lorem ipsum new second texts of Saboo News NEW"}, {title:"baalee", text:" SABAA UMAR MUHAMMED 3 FROM BAALEE OROMIA"}
+    
     ];
-    const lowerTextCollection=["China invest more than 2000 dolla  For Investment Reason To Make Economic Growth Of Thousand Years Of Economic Depression",
-      "America Tax Payer New From War Zone Pulse New War Front Do Bad Things","Russia From Ohio Do Russia Things"]
-   
+    const lowerTextCollection=[ {date:"march 12, 2022" , text:"China invest more than 2000 dolla  For Investment Reason To Make Economic Growth Of Thousand Years Of Economic Depression" },{date:"jan , 23 2017" , text:"America Tax Payer New From War Zone Pulse New War Front Do Bad Things" },{date:"Feb 22, 2024" , text:"Russia From Ohio Do Russia Things"} ];
     // useEffect(() => {
     //   function preloadImages(imageUrls) {
     //     return Promise.all(
@@ -73,7 +73,7 @@ const  HomePageOne = () => {
       if (animateLargeBlogImage) {
         interval = setInterval(() => {
           setActivateInterval(prev => prev + 1);
-        }, 5000);
+        }, 10000);
       }
   
       // Cleanup function to clear the interval
@@ -104,7 +104,7 @@ const  HomePageOne = () => {
           </div>
         )
       }
-        <div className={` w-full ${showBack && blogLoaded ? "":"hidden"} absolute flex pb-10  bottom-0 bg-black `} style={{height:"calc(100vh - 50px)" }}  >
+        <div className={` w-full ${showBack && blogLoaded ? "":"hidden"} overflow-hidden absolute flex pb-10  bottom-0 bg-black `} style={{height:"calc(100vh - 50px)" }}  >
             <img
             onLoad={()=>{
                 setTimeout(()=>{
@@ -119,7 +119,7 @@ const  HomePageOne = () => {
                 },1000);
                 console.log("back loaded");
             }}
-            src={backImage} className={` ${showBack ? "":'hidden'} transition-opacity duration-1000 ease-in-out ${
+            src={backImage} className={` ${currentBlog == 2 ? "animate-slideUpDown":""} ${currentBlog == 1 ? "animate-slideLeftRight":""} ${showBack ? "":'hidden'} transition-opacity duration-1000 ease-in-out ${
           showBack ? 'opacity-100' : 'opacity-0'} w-full h-full object-cover absolute z-0`} alt="" />
           <div className={`w-full h-full absolute z-40  flex justify-start items-center ${showAnother ? "animate-slideDown":"hidden"} `} >
                   <div className='w-1/6 border-r-2 h-full border-r-gray-400' >
@@ -204,8 +204,8 @@ const  HomePageOne = () => {
 </div>
 <div className='absolute w-full h-full left-0 border-r-4 border-gray-600' >
 </div>
-                            <div className=''>
-                                Latest
+                            <div className='flex w-full justify-center items-center h-full'>
+                                <p>Latest</p>
                             </div>
                       </div>
 </div>
@@ -213,32 +213,70 @@ const  HomePageOne = () => {
             <div className={` ${showContent ? "animate-fadeIn animate-slideDown":"opacity-0"} w-2/6 text-white flex flex-col z-10`} >
                      <div className='w-full h-1/2  pb-10 flex justify-center items-end' >
                          <div className='w-full h-1/3 bg-gray-200 flex justify-center items-center overflow-x-hidden' >
-                         <h2 className="text-2xl font-semibold text-gray-700 mb-4 absolute z-10">News Feed</h2>
+                         <h2 className={` ${blogLoaded ? "opacity-0":""} text-2xl font-semibold text-gray-700 mb-4 absolute z-10`}>News Feed</h2>
                          <div className='space-y-4 w-full z-20' >
-                         <div  className="bg-white p-4 rounded-lg shadow-md">
-              <h3 className="text-xl text-center font-medium text-gray-800">SABOO</h3>
-              <p className="text-gray-600 mt-2 w-full word-break animate-colorChange">SABAA Akkam Nagahaa Jirtaa wanti Hunduu 
-                Nagaadhaamii maaltu jira wanti haarofni kanaaf jabaadhu
+                         <div  className={` ${currentBlog == 0 ? "animate-fadeInSlow":"animate-revolveDisappear"} bg-white p-4 rounded-lg shadow-md`}>
+              <h3 className="text-xl text-center font-medium text-gray-800">{upperTextCollection[currentBlog].title}</h3>
+              <p className="text-gray-600 mt-2 w-full word-break animate-colorChange">{upperTextCollection[currentBlog].text}
               </p>
               <a href="#" target="_blank" rel="noopener noreferrer" className="text-blue-500 mt-2 inline-block">
                 Read more
               </a>
             </div>
+            {
+              blogLoaded && (
+                <>
+                 <div  className={` ${currentBlog == 1 ? "animate-shakeSlowUp":"animate-revolveDisappear"} bg-white p-4 rounded-lg shadow-md`}>
+              <h3 className="text-xl text-center font-medium text-gray-800">{upperTextCollection[currentBlog].title}</h3>
+              <p className="text-gray-600 mt-2 w-full word-break animate-colorChange">{upperTextCollection[currentBlog].text}
+              </p>
+              <a href="#" target="_blank" rel="noopener noreferrer" className="text-blue-500 mt-2 inline-block">
+                Read more
+              </a>
+            </div>
+            <div  className={` ${currentBlog == 2 ? "animate-shakeSlowUp":"animate-revolveDisappear"} bg-white p-4 rounded-lg shadow-md`}>
+              <h3 className="text-xl text-center font-medium text-gray-800">{upperTextCollection[currentBlog].title}</h3>
+              <p className="text-gray-600 mt-2 w-full word-break animate-colorChange">{upperTextCollection[currentBlog].text}
+              </p>
+              <a href="#" target="_blank" rel="noopener noreferrer" className="text-blue-500 mt-2 inline-block">
+                Read more
+              </a>
+            </div>
+                </>
+              )
+            }
+           
             </div>
                          </div>
                      </div>
                      <div className='w-full h-1/2  flex flex-col' >
                                 <div className='w-full h-1/4  pl-6 pt-2' >
-                                  March 17, Nov 2024
+                                {lowerTextCollection[currentBlog].date}
                               </div>
-                               <div className='w-full h-1/2  pl-6 pt-2 pr-12 overflow-hidden' >
+                              <div className={`w-full h-1/2  pl-6 pt-2 pr-12 overflow-hidden ${currentBlog == 0 ? "animate-fadeIn":"hidden" } `} >
                                         <span className='w-full word-break text-2xl animate-colorChange2 ' >
-                                              China invest more than 2000 dollar
-                                              For Investment Reason To Make Economic Growth Of Thousand 
-                                              Years Of Economic Depression
+                                        {lowerTextCollection[currentBlog].text}
                                 
                                         </span>
                                   </div>
+                                  {
+                                    blogLoaded && (
+                                      <>
+                                       <div className={` ${currentBlog == 1 ? "animate-fadeIn":"hidden"} w-full h-1/2  pl-6 pt-2 pr-12 overflow-hidden`} >
+                                        <span className='w-full word-break text-2xl animate-colorChange2 ' >
+                                              {lowerTextCollection[currentBlog].text}
+                                
+                                        </span>
+                                  </div>
+                                  <div className={`w-full h-1/2  pl-6 pt-2 pr-12 overflow-hidden ${currentBlog == 2 ? "animate-fadeIn":"hidden" } `} >
+                                        <span className='w-full word-break text-2xl animate-colorChange2 ' >
+                                        {lowerTextCollection[currentBlog].text}
+                                
+                                        </span>
+                                  </div>
+                                      </>
+                                    )
+                                  }
                              
                             <div className='w-full h-1/4  flex justify-start items-end pl-6' >
                           <div className='w-full h-1/2  flex justify-start items-center gap-x-4' >
@@ -259,7 +297,7 @@ const  HomePageOne = () => {
                               </span>
                          </div>
                          <div  className='w-full h-1/3 relative  flex justify-center items-center' >
-                         <div className='w-full h-full' style={{ position: 'relative', paddingTop: '56.25%' }}>
+                         <div className={` ${readySecondVideo && currentBlog == 2 ? "hidden":""} w-full h-full`} style={{ position: 'relative', paddingTop: '56.25%' }}>
 
                        
                          <ReactPlayer
@@ -281,6 +319,36 @@ const  HomePageOne = () => {
           }}
       />
         </div>
+        {
+        blogLoaded && (
+          <div className={` ${readySecondVideo && currentBlog == 2 ? "animate-fadeIn":"hidden"} w-full h-full`} style={{ position: 'relative', paddingTop: '56.25%' }}>
+
+     
+          <ReactPlayer
+          url={"https://youtu.be/oYiT_H13Vio?si=82Fgnn17pEMkK5t2"}
+          width="100%"
+          height="100%"
+          style={{ position: 'absolute', top: 0, left: 0 }}
+          playing={true} // Auto play
+          controls={false} // No controls
+          muted={true}
+          onReady={()=>{
+            setReadySecondVideo(true);
+          }}
+          config={{
+          youtube: {
+          playerVars: {
+          autoplay: 1, // Autoplay the video
+          controls: 0, // Disable controls
+          mute: 1, // Mute the video
+          },
+          },
+          }}
+          />
+          </div>
+        )
+       }                
+         
 
                          </div>
                   </div>
