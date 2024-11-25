@@ -3,6 +3,7 @@ import { useEffect,useState,Suspense,lazy } from 'react';
 import HomePageAsset from './HomePageAsset';
 const  SelectedHomePage = ({selected}) => {
       const FirstHomePage=lazy(()=> import('./HomePageOne'));
+      const HomePageMobileBlog=lazy(()=> import('./HomePageMobileBlog'));
       const [fetchAsset,setFetchAsset]=useState(false);
       const [fetchedHome,setFetchedHome]=useState("");
       const {sentData}=HomePageAsset(fetchAsset,fetchedHome);
@@ -25,6 +26,13 @@ const  SelectedHomePage = ({selected}) => {
             selected && selected == "first" && readyToRender && (
                 <Suspense fallback={<div></div>} >
                 <FirstHomePage data={sentData} />
+                </Suspense>
+            )
+         }
+         {
+            selected && selected == "mobileHomePageBlog" && (
+                <Suspense fallback={<div></div>} >
+                <HomePageMobileBlog />
                 </Suspense>
             )
          }

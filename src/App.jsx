@@ -4,10 +4,14 @@ function App() {
    const SelectedNavBar=lazy(()=> import("./components/navbar/selectedNavBar"));
    const SelectedHomePage=lazy(()=> import("./components/homepage/SelectedHomePage"));
 
+
   return (
     <div className='w-full h-screen overflow-hidden '>
-      <Suspense fallback={<div>Loading</div>} >
+      {/* <Suspense fallback={<div>Loading</div>} >
       <SelectedHomePage selected={"first"} />
+      </Suspense> */}
+      <Suspense fallback={<div>Loading</div>} >
+           <SelectedHomePage selected={"mobileHomePageBlog"}/>
       </Suspense>
         {/* <Suspense fallback={<div>Loading Nav Bar</div>} >
         <SelectedNavBar selected={"sticky"} selectedNames={{brandName:"SEBAIF MOHAMMED" , firstNameLink:"About", secondNameLink:"Info", thirdNameLink:"Contact",fourthNameLink:"Footer",login:"login",signIn:"sign-in"}} />

@@ -82,6 +82,17 @@ module.exports = withMT({
           '50%': { color: 'white' },       // Midway color (red)
           '100%': { color: 'gray' },    // Ending color (black)
         },
+        flip3D: {
+          '0%': { transform: 'rotateY(0deg)' },
+          '50%': { transform: 'rotateY(180deg)' },
+          '100%': { transform: 'rotateY(360deg)' },
+        },
+        flipY: {
+          '0%': { transform: 'rotateY(0deg)', opacity:"1" },
+          '50%': { transform: 'rotateY(90deg)', opacity:"1" },
+          '100%': { transform: 'rotateY(90deg)', opacity:"0.5" },
+        },
+       
       },
       animation: {
         fadeIn: 'fadeIn 1s ease-in-out ',
@@ -98,7 +109,9 @@ module.exports = withMT({
         shakeSlowUp:"shakeSlowUp 2s ease-in forwards",
         revolveDisappear:"revolveDisappear 2s ease-in forwards",
         slideLeftRight:"slideLeftRight 10s ease-in-out forwards",
-         slideUpDown:"slideUpDown 10s ease-in-out forwards"
+         slideUpDown:"slideUpDown 10s ease-in-out forwards",
+         flip3d: 'flip3D 2s ease-in-out ',
+         flipY:"flipY 4s ease-in-out forwards"
       },
     
     },

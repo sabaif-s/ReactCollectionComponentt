@@ -23,7 +23,7 @@ const  HomePageOne = ({data}) => {
     const [warImageUrl,setWarImageUrl]=useState("");
     const [resizedImageUrl,setResizedImageUrl]=useState("");
     const [blogImageCollectionUrl,setBlogCollectionUrl]=useState([]);
-    
+    const [flipAnimate,setFlipAnimate]=useState(false);
     const [upperTextCollectionSent,setUpperTextCollectionSent]=useState([]);
     const [lowerTextCollectionSent,setLowerTextCollectionSent]=useState([]);
    
@@ -79,11 +79,13 @@ const  HomePageOne = ({data}) => {
         if(activateInterval > 0 && activateInterval < 3 && blogImageCollectionUrl.length > 0){
            console.log("current show :", activateInterval);
            setCurrentBlog(activateInterval);
+           setFlipAnimate(false);
         }
         else if (activateInterval != 0) {
           console.log("set to zero");
           setActivateInterval(0);
           setCurrentBlog(0);
+          setFlipAnimate(true);
         }
     },[activateInterval]);
     return (
@@ -207,7 +209,7 @@ const  HomePageOne = ({data}) => {
                          <h2 className={` ${blogLoaded ? "opacity-0":""} text-2xl font-semibold text-gray-700 mb-4 absolute z-10`}>News Feed</h2>
                          <div className='space-y-4 w-full z-20' >
                          <div  className={` ${currentBlog == 0 ? "animate-fadeInSlow":"animate-revolveDisappear"} bg-white p-4 rounded-lg shadow-md`}>
-              <h3 className="text-xl text-center font-medium text-gray-800">{upperTextCollectionSent[currentBlog].title}</h3>
+              <h3 className="lg:text-xl text-center font-medium text-gray-800">{upperTextCollectionSent[currentBlog].title}</h3>
               <p className="text-gray-600 mt-2 w-full word-break animate-colorChange">{upperTextCollectionSent[currentBlog].text}
               </p>
               <a href="#" target="_blank" rel="noopener noreferrer" className="text-blue-500 mt-2 inline-block">
@@ -218,7 +220,7 @@ const  HomePageOne = ({data}) => {
               blogLoaded && (
                 <>
                  <div  className={` ${currentBlog == 1 ? "animate-shakeSlowUp":"animate-revolveDisappear"} bg-white p-4 rounded-lg shadow-md`}>
-              <h3 className="text-xl text-center font-medium text-gray-800">{upperTextCollectionSent[currentBlog].title}</h3>
+              <h3 className="lg:text-xl text-center font-medium text-gray-800">{upperTextCollectionSent[currentBlog].title}</h3>
               <p className="text-gray-600 mt-2 w-full word-break animate-colorChange">{upperTextCollectionSent[currentBlog].text}
               </p>
               <a href="#" target="_blank" rel="noopener noreferrer" className="text-blue-500 mt-2 inline-block">
@@ -226,7 +228,7 @@ const  HomePageOne = ({data}) => {
               </a>
             </div>
             <div  className={` ${currentBlog == 2 ? "animate-shakeSlowUp":"animate-revolveDisappear"} bg-white p-4 rounded-lg shadow-md`}>
-              <h3 className="text-xl text-center font-medium text-gray-800">{upperTextCollectionSent[currentBlog].title}</h3>
+              <h3 className="lg:lg:text-xl text-center font-medium text-gray-800">{upperTextCollectionSent[currentBlog].title}</h3>
               <p className="text-gray-600 mt-2 w-full word-break animate-colorChange">{upperTextCollectionSent[currentBlog].text}
               </p>
               <a href="#" target="_blank" rel="noopener noreferrer" className="text-blue-500 mt-2 inline-block">
@@ -245,7 +247,7 @@ const  HomePageOne = ({data}) => {
                                 {lowerTextCollectionSent[currentBlog].date}
                               </div>
                               <div className={`w-full h-1/2  pl-6 pt-2 pr-12 overflow-hidden ${currentBlog == 0 ? "animate-fadeIn":"hidden" } `} >
-                                        <span className='w-full word-break text-2xl animate-colorChange2 ' >
+                                        <span className='w-full word-break lg:text-2xl animate-colorChange2 ' >
                                         {lowerTextCollectionSent[currentBlog].text}
                                 
                                         </span>
@@ -254,13 +256,13 @@ const  HomePageOne = ({data}) => {
                                     blogLoaded && (
                                       <>
                                        <div className={` ${currentBlog == 1 ? "animate-fadeIn":"hidden"} w-full h-1/2  pl-6 pt-2 pr-12 overflow-hidden`} >
-                                        <span className='w-full word-break text-2xl animate-colorChange2 ' >
+                                        <span className='w-full word-break lg:text-2xl animate-colorChange2 ' >
                                               {lowerTextCollectionSent[currentBlog].text}
                                 
                                         </span>
                                   </div>
                                   <div className={`w-full h-1/2  pl-6 pt-2 pr-12 overflow-hidden ${currentBlog == 2 ? "animate-fadeIn":"hidden" } `} >
-                                        <span className='w-full word-break text-2xl animate-colorChange2 ' >
+                                        <span className='w-full word-break lg:text-2xl animate-colorChange2 ' >
                                         {lowerTextCollectionSent[currentBlog].text}
                                 
                                         </span>
@@ -278,8 +280,8 @@ const  HomePageOne = ({data}) => {
 
 </div>
             </div>
-            <div className={`w-2/6 text-white  flex flex-col z-10 ${showContent ? "animate-fadeIn animate-slideUp":"opacity-0"} `} >
-                  <div className='w-full h-1/2 pb-10  flex flex-col justify-end items-center' >
+            <div className={`w-2/6 text-white  flex flex-col z-10  ${showContent ? "animate-fadeIn animate-slideUp":"opacity-0"} `} >
+                  <div className={`${flipAnimate ? "":""} w-full h-1/2 pb-10  flex flex-col justify-end items-center`} >
                          <div className='w-2/3 h-1/3  overflow-hidden pl-2 pr-6 pb-6 mb-6' >
                               <span className='w-full word-break' >
                               China invest more than 2000 dollar
@@ -378,7 +380,13 @@ const  HomePageOne = ({data}) => {
                                  </div>
 </div>
             </div>
-            <div className={` ${showContent ? "animate-fadeIn":"opacity-0"} w-1/6  z-10`} >
+            <div className={` ${showContent ? "animate-fadeIn":"opacity-0"} w-1/6 text-white z-10`} >
+                 <div className='w-full h-full flex justify-center items-center animate-flipY'>
+                       <p>
+                        SABAA
+                       </p>
+
+                 </div>
 
             </div>
                 </>
