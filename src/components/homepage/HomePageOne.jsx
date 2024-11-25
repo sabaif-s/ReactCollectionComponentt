@@ -1,38 +1,67 @@
 import React from 'react';
+import ReactPlayer from 'react-player';
+import { useState,useEffect } from 'react';
 
 const  HomePageOne = () => {
+    const [showBack,setShowBack]=useState(true);
+    const [showAnother,setShowAnother]=useState(false);
     return (
-        <div className='w-full absolute flex pb-10  bottom-0 ' style={{height:"calc(100vh - 50px)" }}  >
-            <img src="/Grid Back.jpg" className='w-full h-full absolute z-0' alt="" />
-            <div className='w-1/6  pl-6 flex flex-col z-10' >
-                     <div className='w-full h-1/2 bg-gray-300' >
-                          <div className='w-full h-2/3 bg-black flex flex-col justify-center items-start' >
+        <div className={`${showBack ? "":"hidden"} w-full absolute flex pb-10  bottom-0 `} style={{height:"calc(100vh - 50px)" }}  >
+            <img
+            onLoad={()=>{
+                setTimeout(()=>{
+                    setShowBack(true);
+                    setTimeout(()=>{
+                        setShowAnother(true);
+                    },2000);
+                },5800);
+                console.log("back loaded");
+            }}
+            src="/Grid Back.jpg" className={` ${showBack ? "":'hidden'} transition-opacity duration-1000 ease-in-out ${
+          showBack ? 'opacity-100' : 'opacity-0'} w-full h-full object-cover absolute z-0`} alt="" />
+          {
+            showAnother && (
+                <>
+                 <div className='w-1/6  pl-6 flex flex-col z-10' >
+                     <div className='w-full h-1/2 ' >
+                          <div className='w-full h-2/3  flex flex-col justify-center items-start' >
                             <div className='' ><span className='text-8xl text-white ' >. .</span></div>
-                            <div className='w-5/6 h-2/3 bg-red-300' >
+                            <div className='w-5/6 h-2/3 ' >
                                 <img src="/blogImage.jpg" alt="" />
                             </div>
                           </div>
                      </div>
-                     <div className='w-full h-1/2 bg-green-300 z-10 ' >
-                      <div className='w-full h-1/4 p-4 bg-red-300 ' >
+                     <div className='w-full h-1/2 text-white z-10 ' >
+                      <div className='w-full h-1/4 p-4  ' >
                             <div>
                                 Latest
                             </div>
                       </div>
 </div>
             </div>
-            <div className='w-2/6 bg-blue-300 flex flex-col z-10' >
-                     <div className='w-full h-1/2 bg-yellow-100 pb-10 flex justify-center items-end' >
-                         <div className='w-full h-1/3 bg-red-300 flex justify-center items-center' >
-                              News Feed
+            <div className='w-2/6 text-white flex flex-col z-10' >
+                     <div className='w-full h-1/2  pb-10 flex justify-center items-end' >
+                         <div className='w-full h-1/3 bg-gray-200 flex justify-center items-center overflow-x-hidden' >
+                         <h2 className="text-2xl font-semibold text-gray-700 mb-4 absolute z-10">News Feed</h2>
+                         <div className='space-y-4 w-full z-20' >
+                         <div  className="bg-white p-4 rounded-lg shadow-md">
+              <h3 className="text-xl text-center font-medium text-gray-800">SABOO</h3>
+              <p className="text-gray-600 mt-2 w-full word-break">SABAA Akkam Nagahaa Jirtaa wanti Hunduu 
+                Nagaadhaamii maaltu jira wanti haarofni kanaaf jabaadhu
+              </p>
+              <a href="#" target="_blank" rel="noopener noreferrer" className="text-blue-500 mt-2 inline-block">
+                Read more
+              </a>
+            </div>
+            </div>
                          </div>
                      </div>
-                     <div className='w-full h-1/2 bg-green-100 flex flex-col' >
-                                <div className='w-full h-1/4 bg-red-200 pl-6 pt-2' >
+                     <div className='w-full h-1/2  flex flex-col' >
+                                <div className='w-full h-1/4  pl-6 pt-2' >
                                   March 17, Nov 2024
                               </div>
-                               <div className='w-full h-1/2 bg-orange-200 pl-6 pt-2 pr-12 overflow-hidden' >
-                                        <span className='w-full word-break text-2xl bg-red-300' >
+                               <div className='w-full h-1/2  pl-6 pt-2 pr-12 overflow-hidden' >
+                                        <span className='w-full word-break text-2xl ' >
                                               China invest more than 2000 dollar
                                               For Investment Reason To Make Economic Growth Of Thousand 
                                               Years Of Economic Depression
@@ -40,8 +69,8 @@ const  HomePageOne = () => {
                                         </span>
                                   </div>
                              
-                            <div className='w-full h-1/4 bg-blue-200 flex justify-start items-end pl-6' >
-                          <div className='w-full h-1/2 bg-red-100 flex justify-start items-center gap-x-4' >
+                            <div className='w-full h-1/4  flex justify-start items-end pl-6' >
+                          <div className='w-full h-1/2  flex justify-start items-center gap-x-4' >
                              <img src="/sabk.jpeg" className=' h-full rounded-full' alt="" />
                              <span className='text-white' >BY SEBAIF MUHAMMED</span>
                           </div>
@@ -49,28 +78,54 @@ const  HomePageOne = () => {
 
 </div>
             </div>
-            <div className='w-2/6 bg-orange-200  flex flex-col z-10' >
-                  <div className='w-full h-1/2 pb-10 bg-blue-600 flex flex-col justify-end items-center' >
-                         <div className='w-2/3 h-1/3 bg-red-200 overflow-hidden pl-2 pr-6 pb-6 mb-6' >
+            <div className='w-2/6 text-white  flex flex-col z-10' >
+                  <div className='w-full h-1/2 pb-10  flex flex-col justify-end items-center' >
+                         <div className='w-2/3 h-1/3  overflow-hidden pl-2 pr-6 pb-6 mb-6' >
                               <span className='w-full word-break' >
                               China invest more than 2000 dollar
                                               For Investment Reason To Make Economic 
                                             
                               </span>
                          </div>
-                         <div className='w-full h-1/3 bg-gray-300 flex justify-center items-center' >
-                              Video Feed
+                         <div  className='w-full h-1/3 relative  flex justify-center items-center' >
+                         <div className='w-full h-full' style={{ position: 'relative', paddingTop: '56.25%' }}>
+
+                       
+                         <ReactPlayer
+        url={"https://www.youtube.com/watch?v=LUzcJbinU3U"}
+        width="100%"
+        height="100%"
+        style={{ position: 'absolute', top: 0, left: 0 }}
+        playing={true} // Auto play
+        controls={false} // No controls
+        muted={true}
+        config={{
+            youtube: {
+              playerVars: {
+                autoplay: 1, // Autoplay the video
+                controls: 0, // Disable controls
+                mute: 1, // Mute the video
+              },
+            },
+          }}
+      />
+        </div>
+
                          </div>
                   </div>
-                  <div className='w-full h-1/2 bg-orange-600 flex justify-center items-center' >
-                                 <div className='w-full h-2/3 bg-gray-700' >
+                  <div className='w-full h-1/2  flex justify-center items-center' >
+                                 <div className='w-full h-2/3 ' >
                                     <img src="/blogImage.jpg" className='h-full w-full' alt="" />
                                  </div>
 </div>
             </div>
-            <div className='w-1/6 bg-red-300 z-10' >
+            <div className='w-1/6  z-10' >
 
             </div>
+                </>
+            )
+          }
+           
         </div>
     );
 };
