@@ -1,15 +1,15 @@
-import { useState } from 'react'
- 
-  import SelectedNavBar from './components/navbar/selectedNavBar'
-  import SelectedHomePage from './components/homepage/SelectedHomePage';
-  
+import { useState,useEffect,Suspense,lazy } from 'react'
 function App() {
   const [count, setCount] = useState(0);
-   
+   const SelectedNavBar=lazy(()=> import("./components/navbar/selectedNavBar"));
+   const SelectedHomePage=lazy(()=> import("./components/homepage/SelectedHomePage"));
 
   return (
     <div className='w-full h-screen overflow-hidden '>
+      <Suspense fallback={<div>Loading</div>} >
       <SelectedHomePage selected={"first"} />
+      </Suspense>
+     
          {/* <SelectedNavBar selected={"sticky"} selectedNames={{brandName:"SEBAIF MOHAMMED" , firstNameLink:"About", secondNameLink:"Info", thirdNameLink:"Contact",fourthNameLink:"Footer",login:"login",signIn:"sign-in"}} />
          <SelectedNavBar selected={"language"}  selectedNames={{brandName:"SEBAIF MOHAMMED" , firstNameLink:"About", secondNameLink:"Info", thirdNameLink:"Contact",fourthNameLink:"Footer",login:"login",signIn:"sign-in"}} /> 
          <SelectedNavBar selected={"search"}  selectedNames={{brandName:"SEBAIF MOHAMMED" , firstNameLink:"About", secondNameLink:"Info", thirdNameLink:"Contact",fourthNameLink:"Footer",login:"login",signIn:"sign-in"}} /> 

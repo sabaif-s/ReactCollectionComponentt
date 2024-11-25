@@ -23,12 +23,12 @@ const onRenderCallback = (
 };
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  
     <ThemeProvider>
      
       <Profiler id="AppProfiler" onRender={onRenderCallback}>
         <App />
       </Profiler>
     </ThemeProvider>
-  </StrictMode>
+  
 );

@@ -1,12 +1,55 @@
 import React from 'react';
 import ReactPlayer from 'react-player';
-import { useState,useEffect } from 'react';
+import { useState,useEffect} from 'react';
+ 
+import backImage from '../../assets/images/Grid Back.webp';
+import blogImage from '../../assets/images/blogImage.webp';
+import resizedImage from '../../assets/images/resizedBlogImage.webp';
 
 const  HomePageOne = () => {
     const [showBack,setShowBack]=useState(false);
     const [showAnother,setShowAnother]=useState(false);
     const [showContent,setShowContent]=useState(false);
+     const [startAnimation,setStartAnimation]=useState(false);
+    const [blogLoaded,setBlogLoaded]=useState(false);
+   
+   
+
+   
+    // useEffect(() => {
+    //   function preloadImages(imageUrls) {
+    //     return Promise.all(
+    //       imageUrls.map((url) => {
+    //         return new Promise((resolve, reject) => {
+    //           const img = new Image();
+    //           img.src = url;
+    //           img.onload = resolve; // Resolve when the image loads
+    //           img.onerror = reject; // Reject if there's an error
+    //         });
+    //       })
+    //     );
+    //   }
+    //    if(images.length > 0){
+    //     preloadImages(images)
+    //     .then(() => {
+    //       console.log('All images are loaded');
+    //       setImagesLoaded(true); // Update state when all images are loaded
+    //     })
+    //     .catch((error) => {
+    //       console.error('Failed to load images', error);
+    //     });
+    //    }
+     
+    // }, [images]);
     return (
+      <>
+      {
+        !showBack && (
+          <div className='w-full h-full bg-gray-400' >
+
+          </div>
+        )
+      }
         <div className={` w-full ${showBack ? "":"hidden"} absolute flex pb-10  bottom-0 bg-black `} style={{height:"calc(100vh - 50px)" }}  >
             <img
             onLoad={()=>{
@@ -16,12 +59,13 @@ const  HomePageOne = () => {
                         setShowAnother(true);
                         setTimeout(()=>{
                          setShowContent(true);
+                         setStartAnimation(true);
                         },2000);
                     },2500);
                 },1000);
                 console.log("back loaded");
             }}
-            src="/Grid Back.jpg" className={` ${showBack ? "":'hidden'} transition-opacity duration-1000 ease-in-out ${
+            src={backImage} className={` ${showBack ? "":'hidden'} transition-opacity duration-1000 ease-in-out ${
           showBack ? 'opacity-100' : 'opacity-0'} w-full h-full object-cover absolute z-0`} alt="" />
           <div className={`w-full h-full absolute z-40  flex justify-start items-center ${showAnother ? "animate-slideDown":"hidden"} `} >
                   <div className='w-1/6 border-r-2 h-full border-r-gray-400' >
@@ -50,8 +94,25 @@ const  HomePageOne = () => {
                      <div className='w-full h-1/2 ' >
                           <div className='w-full h-2/3  flex flex-col justify-center items-start' >
                             <div className='' ><span className='text-8xl text-white ' >. .</span></div>
-                            <div className='w-5/6 h-2/3 ' >
-                                <img src="/blogImage.jpg" alt="" />
+                            <div className='w-5/6 h-2/3 relative' >
+                            <img
+            src={resizedImage}
+            alt="Blog Image"
+            className={`w-full h-auto absolute z-10 object-cover ${blogLoaded ? "opacity-0":"opacity-100"} `}
+          
+          />
+                           <img
+            src={blogImage}
+            alt="Blog Image"
+            className={` ${blogLoaded ? "opacity-100":"opacity-0"} w-full h-auto absolute z-10 object-cover`}
+            onLoad={()=>{
+              setBlogLoaded(true);
+            }}
+          
+          />
+                            
+        
+                               
                             </div>
                           </div>
                      </div>
@@ -146,8 +207,13 @@ const  HomePageOne = () => {
                          </div>
                   </div>
                   <div className='w-full h-1/2  flex justify-center items-center' >
-                                 <div className='w-full h-2/3 ' >
-                                    <img src="/blogImage.jpg" className='h-full w-full' alt="" />
+                                 <div className='w-full h-2/3 relative' >
+                                    <img src={resizedImage} className='w-full h-full absolute z-0' alt="" />
+                                    <img
+                                     onLoad={()=>{
+                                      setBlogLoaded(true);
+                                     }}
+                                    src={blogImage} className={` ${blogLoaded ? "animate-fadeIn":"opacity-0"} absolute h-full w-full z-10`} alt="" />
                                  </div>
 </div>
             </div>
@@ -159,6 +225,7 @@ const  HomePageOne = () => {
           }
            
         </div>
+        </>
     );
 };
 
