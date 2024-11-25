@@ -27,6 +27,16 @@ module.exports = withMT({
           '0%': { opacity: '1' },
           '100%': { opacity: '0' },
         },
+        shakeSlow:{
+         '0%':{transform : "translateX(0)"},
+         '50%':{transform : "translateX(30px)"},
+         '100%':{transform :"translateX(0)"}
+        },
+        shakeSlowUp:{
+          '0%':{transform : "translateY(0)"},
+          '50%':{transform : "translateY(-30px)"},
+          '100%':{transform :"translateY(0)"}
+         },
         slideDown:{
          '0%':{transform : "translateY(-100%)"},
          '100%':{transform : "translateY(0)"}
@@ -67,7 +77,9 @@ module.exports = withMT({
         slideRight:"slideRight 2s ease-in forwards",
         slideLeft:"slideLeft 2s ease-in forwards",
         colorChange:"colorChange 20s ease-in infinite",
-        colorChange2:"colorChange2 20s ease-in infinite"
+        colorChange2:"colorChange2 20s ease-in infinite",
+        shakeSlow:"shakeSlow 2s ease-in forwards",
+        shakeSlowUp:"shakeSlowUp 2s ease-in forwards"
       },
     
     },

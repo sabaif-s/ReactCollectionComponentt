@@ -5,6 +5,8 @@ import { useState,useEffect} from 'react';
 import backImage from '../../assets/images/Grid Back.webp';
 import blogImage from '../../assets/images/blogImage.webp';
 import resizedImage from '../../assets/images/resizedBlogImage.webp';
+import newsImage from '../../assets/images/news.webp';
+import warImage from '../../assets/images/war.webp';
 
 const  HomePageOne = () => {
     const [showBack,setShowBack]=useState(false);
@@ -14,6 +16,16 @@ const  HomePageOne = () => {
     const [blogLoaded,setBlogLoaded]=useState(false);
     const [slideRightFirst,setSlideRightFirst]=useState(false);
     const [animateLargeBlogImage,setAnimateLargeBlogImage]=useState(false);
+    const [warLoaded,setWarLoaded]=useState(false);
+    const [newsLoaded,setNewsLoaded]=useState(false);
+    const [activateInterval,setActivateInterval]=useState(0);
+    const [currentBlog,setCurrentBlog]=useState(0);
+    const blogImageCollection=[blogImage,newsImage,warImage];
+    const upperTextCollection=["SABAA Akkam Nagahaa Jirtaa wanti Hunduu Nagaadhaamii maaltu jira wanti haarofni kanaaf jabaadhu",
+      "lorem ipsum new second texts of Saboo News NEW","SABAA UMAR MUHAMMED 3 FROM BAALEE OROMIA"
+    ];
+    const lowerTextCollection=["China invest more than 2000 dolla  For Investment Reason To Make Economic Growth Of Thousand Years Of Economic Depression",
+      "America Tax Payer New From War Zone Pulse New War Front Do Bad Things","Russia From Ohio Do Russia Things"]
    
     // useEffect(() => {
     //   function preloadImages(imageUrls) {
@@ -49,6 +61,40 @@ const  HomePageOne = () => {
             },1000);
            }
     },[startAnimation]);
+    useEffect(()=>{
+             if(warLoaded && newsLoaded){
+              console.log("Time To Show Another Blog Image");
+              setAnimateLargeBlogImage(true);
+             }
+    },[warLoaded,newsLoaded]);
+    useEffect(() => {
+      let interval; // Declare interval variable here
+  
+      if (animateLargeBlogImage) {
+        interval = setInterval(() => {
+          setActivateInterval(prev => prev + 1);
+        }, 5000);
+      }
+  
+      // Cleanup function to clear the interval
+      return () => {
+        if (interval) {
+          clearInterval(interval);
+        }
+      };
+  
+    }, [animateLargeBlogImage]);
+    useEffect(()=>{
+        if(activateInterval > 0 && activateInterval < 3 && blogImageCollection.length > 0){
+           console.log("current show :", activateInterval);
+           setCurrentBlog(activateInterval);
+        }
+        else if (activateInterval != 0) {
+          console.log("set to zero");
+          setActivateInterval(0);
+          setCurrentBlog(0);
+        }
+    },[activateInterval]);
     return (
       <>
       {
@@ -102,7 +148,7 @@ const  HomePageOne = () => {
                      <div className='w-full h-1/2 ' >
                           <div className='w-full h-2/3  flex flex-col justify-center items-start' >
                             <div className='' ><span className='text-8xl text-white ' >. .</span></div>
-                            <div className='w-5/6 h-2/3 relative' >
+                            <div className='w-5/6 h-2/3 relative ' >
                             <img
             src={resizedImage}
             alt="Blog Image"
@@ -112,12 +158,36 @@ const  HomePageOne = () => {
                            <img
             src={blogImage}
             alt="Blog Image"
-            className={` ${blogLoaded ? "opacity-100":"opacity-0"} w-full h-auto absolute z-10 object-cover`}
+            className={` ${blogLoaded && currentBlog == 0 ? "animate-fadeIn":"opacity-0"} w-full h-auto absolute z-10 object-cover`}
             onLoad={()=>{
               setBlogLoaded(true);
             }}
           
           />
+          {
+            blogLoaded && (
+              <>
+              <img
+              src={newsImage}
+              alt="Blog Image"
+              className={` ${newsLoaded && currentBlog == 1 ? "animate-shakeSlow":"opacity-0"} w-full h-auto absolute z-0 object-cover`}
+              onLoad={()=>{
+                console.log("news loaded");
+                setNewsLoaded(true);
+              }}
+            />
+             <img
+              src={warImage}
+              alt="Blog Image"
+              className={` ${warLoaded && currentBlog == 2 ? "animate-shakeSlow":"opacity-0"} w-full h-auto absolute z-0 object-cover`}
+              onLoad={()=>{
+                console.log("war loaded");
+                setWarLoaded(true);
+              }}
+            />
+            </>
+            )
+          }
                             
         
                                
@@ -216,12 +286,36 @@ const  HomePageOne = () => {
                   </div>
                   <div className='w-full h-1/2  flex justify-center items-center' >
                                  <div className='w-full h-2/3 relative' >
-                                    <img src={resizedImage} className='w-full h-full absolute z-0' alt="" />
+                                    <img src={resizedImage} className={` ${blogLoaded ? "animate-fadeOut":""} w-full h-full absolute z-0`} alt="" />
                                     <img
                                      onLoad={()=>{
                                       setBlogLoaded(true);
                                      }}
-                                    src={blogImage} className={` ${blogLoaded ? "animate-fadeIn":"opacity-0"} absolute h-full w-full z-10`} alt="" />
+                                    src={blogImage} className={` ${blogLoaded && currentBlog == 0 ? "animate-fadeIn":"opacity-0"} absolute h-full w-full z-10`} alt="" />
+                                     {
+            blogLoaded && (
+              <>
+              <img
+              src={newsImage}
+              alt="Blog Image"
+              className={` ${newsLoaded && currentBlog == 1 ? "animate-shakeSlowUp":"opacity-0"} w-full h-full absolute z-0 object-cover`}
+              onLoad={()=>{
+                console.log("news loaded");
+                setNewsLoaded(true);
+              }}
+            />
+             <img
+              src={warImage}
+              alt="Blog Image"
+              className={` ${warLoaded && currentBlog == 2 ? "animate-shakeSlowUp":"opacity-0"} w-full h-full absolute z-0 object-cover`}
+              onLoad={()=>{
+                console.log("war loaded");
+                setWarLoaded(true);
+              }}
+            />
+            </>
+            )
+          }
                                  </div>
 </div>
             </div>
