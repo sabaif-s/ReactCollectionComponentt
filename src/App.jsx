@@ -9,9 +9,9 @@ function App() {
       <Suspense fallback={<div>Loading</div>} >
       <SelectedHomePage selected={"first"} />
       </Suspense>
-        <Suspense fallback={<div>Loading Nav Bar</div>} >
+        {/* <Suspense fallback={<div>Loading Nav Bar</div>} >
         <SelectedNavBar selected={"sticky"} selectedNames={{brandName:"SEBAIF MOHAMMED" , firstNameLink:"About", secondNameLink:"Info", thirdNameLink:"Contact",fourthNameLink:"Footer",login:"login",signIn:"sign-in"}} />
-        </Suspense>
+        </Suspense> */}
         
          {/* <SelectedNavBar selected={"language"}  selectedNames={{brandName:"SEBAIF MOHAMMED" , firstNameLink:"About", secondNameLink:"Info", thirdNameLink:"Contact",fourthNameLink:"Footer",login:"login",signIn:"sign-in"}} /> 
          <SelectedNavBar selected={"search"}  selectedNames={{brandName:"SEBAIF MOHAMMED" , firstNameLink:"About", secondNameLink:"Info", thirdNameLink:"Contact",fourthNameLink:"Footer",login:"login",signIn:"sign-in"}} /> 

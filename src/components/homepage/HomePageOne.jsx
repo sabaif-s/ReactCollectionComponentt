@@ -2,13 +2,9 @@ import React from 'react';
 import ReactPlayer from 'react-player';
 import { useState,useEffect} from 'react';
  
-import backImage from '../../assets/images/Grid Back.webp';
-import blogImage from '../../assets/images/blogImage.webp';
-import resizedImage from '../../assets/images/resizedBlogImage.webp';
-import newsImage from '../../assets/images/news.webp';
-import warImage from '../../assets/images/war.webp';
+ 
 
-const  HomePageOne = () => {
+const  HomePageOne = ({data}) => {
     const [showBack,setShowBack]=useState(false);
     const [showAnother,setShowAnother]=useState(false);
     const [showContent,setShowContent]=useState(false);
@@ -21,37 +17,32 @@ const  HomePageOne = () => {
     const [activateInterval,setActivateInterval]=useState(0);
     const [currentBlog,setCurrentBlog]=useState(0);
     const [readySecondVideo,setReadySecondVideo]=useState(false);
-    const blogImageCollection=[blogImage,newsImage,warImage];
-    const upperTextCollection=[ {title:"SABOO" ,text:"SABAA Akkam Nagahaa Jirtaa wanti Hunduu Nagaadhaamii maaltu jira wanti haarofni kanaaf jabaadhu"} ,
-      {title:"lorem ipsum" , text: "lorem ipsum new second texts of Saboo News NEW"}, {title:"baalee", text:" SABAA UMAR MUHAMMED 3 FROM BAALEE OROMIA"}
+    const [blogImageUrl,setBlogImageUrl]=useState("");
+    const [backImageUrl,setBackImageUrl]=useState("");
+    const [newsImageUrl,setNewsImageUrl]=useState("");
+    const [warImageUrl,setWarImageUrl]=useState("");
+    const [resizedImageUrl,setResizedImageUrl]=useState("");
+    const [blogImageCollectionUrl,setBlogCollectionUrl]=useState([]);
     
-    ];
-    const lowerTextCollection=[ {date:"march 12, 2022" , text:"China invest more than 2000 dolla  For Investment Reason To Make Economic Growth Of Thousand Years Of Economic Depression" },{date:"jan , 23 2017" , text:"America Tax Payer New From War Zone Pulse New War Front Do Bad Things" },{date:"Feb 22, 2024" , text:"Russia From Ohio Do Russia Things"} ];
-    // useEffect(() => {
-    //   function preloadImages(imageUrls) {
-    //     return Promise.all(
-    //       imageUrls.map((url) => {
-    //         return new Promise((resolve, reject) => {
-    //           const img = new Image();
-    //           img.src = url;
-    //           img.onload = resolve; // Resolve when the image loads
-    //           img.onerror = reject; // Reject if there's an error
-    //         });
-    //       })
-    //     );
-    //   }
-    //    if(images.length > 0){
-    //     preloadImages(images)
-    //     .then(() => {
-    //       console.log('All images are loaded');
-    //       setImagesLoaded(true); // Update state when all images are loaded
-    //     })
-    //     .catch((error) => {
-    //       console.error('Failed to load images', error);
-    //     });
-    //    }
-     
-    // }, [images]);
+    const [upperTextCollectionSent,setUpperTextCollectionSent]=useState([]);
+    const [lowerTextCollectionSent,setLowerTextCollectionSent]=useState([]);
+   
+    useEffect(()=>{
+           if(data.length > 0 ){
+            setBackImageUrl(data[0].images[0]);
+            setBlogImageUrl(data[0].images[1]);
+            setNewsImageUrl(data[0].images[2]);
+            setResizedImageUrl(data[0].images[3]);
+            setWarImageUrl(data[0].images[4]);
+             setUpperTextCollectionSent(data[0].upperTextCollection);
+             setLowerTextCollectionSent(data[0].lowerTextCollection);
+           }
+ },[data]);
+ useEffect(()=>{
+          if(blogImageUrl != "" && newsImageUrl != "" && warImageUrl != ""){
+            setBlogCollectionUrl([...blogImageCollectionUrl,blogImageUrl,newsImageUrl,warImageUrl]);
+          }
+ },[blogImageUrl,newsImageUrl,warImageUrl]);
     useEffect(()=>{
            if(startAnimation){
             console.log("Start Animation");
@@ -85,7 +76,7 @@ const  HomePageOne = () => {
   
     }, [animateLargeBlogImage]);
     useEffect(()=>{
-        if(activateInterval > 0 && activateInterval < 3 && blogImageCollection.length > 0){
+        if(activateInterval > 0 && activateInterval < 3 && blogImageCollectionUrl.length > 0){
            console.log("current show :", activateInterval);
            setCurrentBlog(activateInterval);
         }
@@ -119,7 +110,7 @@ const  HomePageOne = () => {
                 },1000);
                 console.log("back loaded");
             }}
-            src={backImage} className={` ${currentBlog == 2 ? "animate-slideUpDown":""} ${currentBlog == 1 ? "animate-slideLeftRight":""} ${showBack ? "":'hidden'} transition-opacity duration-1000 ease-in-out ${
+            src={backImageUrl} className={` ${currentBlog == 2 ? "animate-slideUpDown":""} ${currentBlog == 1 ? "animate-slideLeftRight":""} ${showBack ? "":'hidden'} transition-opacity duration-1000 ease-in-out ${
           showBack ? 'opacity-100' : 'opacity-0'} w-full h-full object-cover absolute z-0`} alt="" />
           <div className={`w-full h-full absolute z-40  flex justify-start items-center ${showAnother ? "animate-slideDown":"hidden"} `} >
                   <div className='w-1/6 border-r-2 h-full border-r-gray-400' >
@@ -150,13 +141,13 @@ const  HomePageOne = () => {
                             <div className='' ><span className='text-8xl text-white ' >. .</span></div>
                             <div className='w-5/6 h-2/3 relative ' >
                             <img
-            src={resizedImage}
+            src={resizedImageUrl}
             alt="Blog Image"
             className={`w-full h-auto absolute z-10 object-cover ${blogLoaded ? "opacity-0":"opacity-100"} `}
           
           />
                            <img
-            src={blogImage}
+            src={blogImageUrl}
             alt="Blog Image"
             className={` ${blogLoaded && currentBlog == 0 ? "animate-fadeIn":"opacity-0"} w-full h-auto absolute z-10 object-cover`}
             onLoad={()=>{
@@ -168,7 +159,7 @@ const  HomePageOne = () => {
             blogLoaded && (
               <>
               <img
-              src={newsImage}
+              src={newsImageUrl}
               alt="Blog Image"
               className={` ${newsLoaded && currentBlog == 1 ? "animate-shakeSlow":"opacity-0"} w-full h-auto absolute z-0 object-cover`}
               onLoad={()=>{
@@ -177,7 +168,7 @@ const  HomePageOne = () => {
               }}
             />
              <img
-              src={warImage}
+              src={warImageUrl}
               alt="Blog Image"
               className={` ${warLoaded && currentBlog == 2 ? "animate-shakeSlow":"opacity-0"} w-full h-auto absolute z-0 object-cover`}
               onLoad={()=>{
@@ -216,8 +207,8 @@ const  HomePageOne = () => {
                          <h2 className={` ${blogLoaded ? "opacity-0":""} text-2xl font-semibold text-gray-700 mb-4 absolute z-10`}>News Feed</h2>
                          <div className='space-y-4 w-full z-20' >
                          <div  className={` ${currentBlog == 0 ? "animate-fadeInSlow":"animate-revolveDisappear"} bg-white p-4 rounded-lg shadow-md`}>
-              <h3 className="text-xl text-center font-medium text-gray-800">{upperTextCollection[currentBlog].title}</h3>
-              <p className="text-gray-600 mt-2 w-full word-break animate-colorChange">{upperTextCollection[currentBlog].text}
+              <h3 className="text-xl text-center font-medium text-gray-800">{upperTextCollectionSent[currentBlog].title}</h3>
+              <p className="text-gray-600 mt-2 w-full word-break animate-colorChange">{upperTextCollectionSent[currentBlog].text}
               </p>
               <a href="#" target="_blank" rel="noopener noreferrer" className="text-blue-500 mt-2 inline-block">
                 Read more
@@ -227,16 +218,16 @@ const  HomePageOne = () => {
               blogLoaded && (
                 <>
                  <div  className={` ${currentBlog == 1 ? "animate-shakeSlowUp":"animate-revolveDisappear"} bg-white p-4 rounded-lg shadow-md`}>
-              <h3 className="text-xl text-center font-medium text-gray-800">{upperTextCollection[currentBlog].title}</h3>
-              <p className="text-gray-600 mt-2 w-full word-break animate-colorChange">{upperTextCollection[currentBlog].text}
+              <h3 className="text-xl text-center font-medium text-gray-800">{upperTextCollectionSent[currentBlog].title}</h3>
+              <p className="text-gray-600 mt-2 w-full word-break animate-colorChange">{upperTextCollectionSent[currentBlog].text}
               </p>
               <a href="#" target="_blank" rel="noopener noreferrer" className="text-blue-500 mt-2 inline-block">
                 Read more
               </a>
             </div>
             <div  className={` ${currentBlog == 2 ? "animate-shakeSlowUp":"animate-revolveDisappear"} bg-white p-4 rounded-lg shadow-md`}>
-              <h3 className="text-xl text-center font-medium text-gray-800">{upperTextCollection[currentBlog].title}</h3>
-              <p className="text-gray-600 mt-2 w-full word-break animate-colorChange">{upperTextCollection[currentBlog].text}
+              <h3 className="text-xl text-center font-medium text-gray-800">{upperTextCollectionSent[currentBlog].title}</h3>
+              <p className="text-gray-600 mt-2 w-full word-break animate-colorChange">{upperTextCollectionSent[currentBlog].text}
               </p>
               <a href="#" target="_blank" rel="noopener noreferrer" className="text-blue-500 mt-2 inline-block">
                 Read more
@@ -251,11 +242,11 @@ const  HomePageOne = () => {
                      </div>
                      <div className='w-full h-1/2  flex flex-col' >
                                 <div className='w-full h-1/4  pl-6 pt-2' >
-                                {lowerTextCollection[currentBlog].date}
+                                {lowerTextCollectionSent[currentBlog].date}
                               </div>
                               <div className={`w-full h-1/2  pl-6 pt-2 pr-12 overflow-hidden ${currentBlog == 0 ? "animate-fadeIn":"hidden" } `} >
                                         <span className='w-full word-break text-2xl animate-colorChange2 ' >
-                                        {lowerTextCollection[currentBlog].text}
+                                        {lowerTextCollectionSent[currentBlog].text}
                                 
                                         </span>
                                   </div>
@@ -264,13 +255,13 @@ const  HomePageOne = () => {
                                       <>
                                        <div className={` ${currentBlog == 1 ? "animate-fadeIn":"hidden"} w-full h-1/2  pl-6 pt-2 pr-12 overflow-hidden`} >
                                         <span className='w-full word-break text-2xl animate-colorChange2 ' >
-                                              {lowerTextCollection[currentBlog].text}
+                                              {lowerTextCollectionSent[currentBlog].text}
                                 
                                         </span>
                                   </div>
                                   <div className={`w-full h-1/2  pl-6 pt-2 pr-12 overflow-hidden ${currentBlog == 2 ? "animate-fadeIn":"hidden" } `} >
                                         <span className='w-full word-break text-2xl animate-colorChange2 ' >
-                                        {lowerTextCollection[currentBlog].text}
+                                        {lowerTextCollectionSent[currentBlog].text}
                                 
                                         </span>
                                   </div>
@@ -354,17 +345,17 @@ const  HomePageOne = () => {
                   </div>
                   <div className='w-full h-1/2  flex justify-center items-center' >
                                  <div className='w-full h-2/3 relative' >
-                                    <img src={resizedImage} className={` ${blogLoaded ? "animate-fadeOut":""} w-full h-full absolute z-0`} alt="" />
+                                    <img src={resizedImageUrl} className={` ${blogLoaded ? "animate-fadeOut":""} w-full h-full absolute z-0`} alt="" />
                                     <img
                                      onLoad={()=>{
                                       setBlogLoaded(true);
                                      }}
-                                    src={blogImage} className={` ${blogLoaded && currentBlog == 0 ? "animate-fadeIn":"opacity-0"} absolute h-full w-full z-10`} alt="" />
+                                    src={blogImageUrl} className={` ${blogLoaded && currentBlog == 0 ? "animate-fadeIn":"opacity-0"} absolute h-full w-full z-10`} alt="" />
                                      {
             blogLoaded && (
               <>
               <img
-              src={newsImage}
+              src={newsImageUrl}
               alt="Blog Image"
               className={` ${newsLoaded && currentBlog == 1 ? "animate-shakeSlowUp":"opacity-0"} w-full h-full absolute z-0 object-cover`}
               onLoad={()=>{
@@ -373,7 +364,7 @@ const  HomePageOne = () => {
               }}
             />
              <img
-              src={warImage}
+              src={warImageUrl}
               alt="Blog Image"
               className={` ${warLoaded && currentBlog == 2 ? "animate-shakeSlowUp":"opacity-0"} w-full h-full absolute z-0 object-cover`}
               onLoad={()=>{
