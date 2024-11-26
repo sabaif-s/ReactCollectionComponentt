@@ -121,6 +121,7 @@ module.exports = withMT({
         revolveDisappear:"revolveDisappear 2s ease-in forwards",
         slideLeftRight:"slideLeftRight 10s ease-in-out forwards",
          slideUpDown:"slideUpDown 10s ease-in-out forwards",
+         slideUpDownFast:"slideUpDown 4s ease-in-out infinite",
          flip3d: 'flip3D 2s ease-in-out ',
          flipY:"flipY 4s ease-in-out forwards"
       },
