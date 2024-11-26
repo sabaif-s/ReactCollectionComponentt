@@ -6,7 +6,7 @@ function App() {
 
 
   return (
-    <div className='w-full h-screen overflow-hidden '>
+    <div className='w-full h-screen overflow-x-hidden '>
       {/* <Suspense fallback={<div>Loading</div>} >
       <SelectedHomePage selected={"first"} />
       </Suspense> */}

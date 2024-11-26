@@ -49,10 +49,64 @@ return()=>{
   const imageLoaded=()=>{
     setShowImage(true);
   }
+  const scrollToBottom = () => {
+    window.scrollTo({
+      top: document.body.scrollHeight, // Scroll to the bottom of the page
+      behavior: "smooth",
+    });
+    console.log("clicked Scroll");
+    console.log(document.body.scrollHeight);
+  };
     return (
+      <>
         <div className='w-full h-full relative flex flex-col justify-start items-center' >
-          <div className='w-full h-1/6 bg-gray-400 rounded-t-large' >
-
+          <div className='w-full h-1/6 bg-gray-400 rounded-t-large px-6 flex justify-between items-center' >
+                          <div >
+                          <svg
+      className="w-6 h-6 text-gray-600"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M10 4a6 6 0 100 12 6 6 0 000-12zm8 8l4 4m-4-4l-4 4"
+      />
+    </svg>
+                          </div>
+                          <div className='w-full flex justify-center' >
+                            SEBAIF BLOG
+                          </div>
+                          <div>
+                          <svg
+      className="w-6 h-6 text-gray-600"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {false ? (
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M6 18L18 6M6 6l12 12"
+        />
+      ) : (
+        <>
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 6h16M4 12h16m-7 6h7"
+          />
+        </>
+      )}
+    </svg>
+                          </div>
           </div>
           <div className='w-full h-5/6 relative px-6 flex flex-col gap-y-6 justify-center items-center' >
           <div className={` ${showImage ? "hidden":"animate-fadeInOut"} w-full h-full absolute z-0 bg-black bg-opacity-30`}>
@@ -85,14 +139,38 @@ return()=>{
                        
                   </div>
              </div>
-             <div className='w-full absolute bottom-6  h-12 flex justify-center items-center  rounded-twelve bg-yellow-200' >
-               <div className='w-10 h-full bg-black rounded-twelve text-white flex justify-center items-center' >
-                    <span className='animate-slideUpDownFast' >A</span>
+             <div className='w-full absolute bottom-6  h-12 flex justify-center items-center  rounded-twelve ' >
+               <div className='w-full h-full relative rounded-twelve text-white flex justify-center items-center' >
+               <button
+        onClick={scrollToBottom}
+        className="absolute bottom-0 z-50 flex flex-col items-center"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={2}
+          stroke="currentColor"
+          
+          className="w-10 h-10 text-red-600"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M19 9l-7 7-7-7"
+          />
+        </svg>
+        <span className=" text-2xl text-blue-500">Scroll Down</span>
+      </button>
                </div>
 </div>
           </div>
 
         </div>
+        <div className='w-full h-screen bg-blue-200'>
+                      SABAA
+        </div>
+        </>
     );
 };
 
