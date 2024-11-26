@@ -1,11 +1,12 @@
 import React from 'react';
 import { useEffect,useState } from 'react';
-import blogMobile from '../../assets/images/blogMobile.jpg';
+import blogMobile from '../../assets/images/blogMobile.webp';
 const  HomePageMobileBlog = () => {
  const [animateBorder,setAnimateBorder]=useState(0);
  const [borderShow,setAnimateBorderShow]=useState(0);
  const [stopAnimation,setStopAnimation]=useState(false);
  const [stoppedOnce,setStoppedOnce]=useState(false);
+ const [showImage,setShowImage]=useState(false);
   useEffect(()=>{
  
  if(animateBorder > 0){
@@ -45,13 +46,21 @@ return()=>{
              },10000);
          }
   },[stopAnimation]);
+  const imageLoaded=()=>{
+    setShowImage(true);
+  }
     return (
         <div className='w-full h-full relative flex flex-col justify-start items-center' >
           <div className='w-full h-1/6 bg-gray-400 rounded-t-large' >
 
           </div>
           <div className='w-full h-5/6 relative px-6 flex flex-col gap-y-6 justify-center items-center' >
-          <img src={blogMobile} className='w-full h-full object-cover absolute z-0 ' alt="" />
+          <div className={` ${showImage ? "hidden":"animate-fadeInOut"} w-full h-full absolute z-0 bg-black bg-opacity-30`}>
+
+          </div>
+          <img src={blogMobile} onLoad={imageLoaded} className={`
+          ${showImage ? "animate-fadeIn":"hidden"} 
+            w-full h-full object-cover absolute z-0`} alt="" />
              <div className='w-full h-2/3 rounded-twelve bg-gray-200 bg-opacity-70 z-10 flex flex-col justify-start items-center' >
                   <div className='w-full h-1/3 flex justify-center items-center' >
                                      <span className='text-blue-500 text-4xl font-bold' >My BLOG </span>
