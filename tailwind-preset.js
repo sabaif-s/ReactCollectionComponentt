@@ -124,6 +124,7 @@ module.exports={
             slideLeftRight:"slideLeftRight 10s ease-in-out forwards",
              slideUpDown:"slideUpDown 10s ease-in-out forwards",
              slideUpDownFast:"slideUpDown 4s ease-in-out infinite",
+             slideUpDownSlowInfinite:"slideUpDown 10s ease-in-out infinite",
              flip3d: 'flip3D 2s ease-in-out ',
              flipY:"flipY 4s ease-in-out forwards",
              fadeInOut:"fadeInOut 4s ease-in-out infinite"

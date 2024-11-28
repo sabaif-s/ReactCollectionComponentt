@@ -143,7 +143,7 @@ return()=>{
                <div className='w-full h-full relative rounded-twelve text-white flex justify-center items-center' >
                <button
         onClick={scrollToBottom}
-        className="absolute bottom-0 z-50 flex flex-col items-center"
+        className="absolute bottom-0 z-50 flex flex-col items-center animate-slideUpDownSlowInfinite"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -167,9 +167,7 @@ return()=>{
           </div>
 
         </div>
-        <div className='w-full h-screen bg-blue-200'>
-                      SABAA
-        </div>
+         
         </>
     );
 };
