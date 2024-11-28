@@ -1,4 +1,5 @@
 import { useState,useEffect,Suspense,lazy } from 'react'
+import RegisterMobile from './components/registerPage/registerMobile';
 function App() {
   const [count, setCount] = useState(0);
    const SelectedNavBar=lazy(()=> import("./components/navbar/selectedNavBar"));
@@ -7,12 +8,13 @@ function App() {
 
   return (
     <div className='w-full h-screen overflow-x-hidden '>
+      <RegisterMobile/>
       {/* <Suspense fallback={<div>Loading</div>} >
       <SelectedHomePage selected={"first"} />
       </Suspense> */}
-      <Suspense fallback={<div>Loading</div>} >
+      {/* <Suspense fallback={<div>Loading</div>} >
            <SelectedHomePage selected={"mobileHomePageBlog"}/>
-      </Suspense>
+      </Suspense> */}
         {/* <Suspense fallback={<div>Loading Nav Bar</div>} >
         <SelectedNavBar selected={"sticky"} selectedNames={{brandName:"SEBAIF MOHAMMED" , firstNameLink:"About", secondNameLink:"Info", thirdNameLink:"Contact",fourthNameLink:"Footer",login:"login",signIn:"sign-in"}} />
         </Suspense> */}
