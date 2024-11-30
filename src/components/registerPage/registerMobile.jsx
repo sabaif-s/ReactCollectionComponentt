@@ -17,8 +17,15 @@ const  RegisterMobile = () => {
     const [reRender,setReRender]=useState(0);
     const [showEmailError,setShowEmailError]=useState(false);
     const [passWordError,setPassWordError]=useState(false);
-    const { register, handleSubmit, formState: { errors,isSubmitted },clearErrors,watch } = useForm();
+    const [userNameError,setUserNameError]=useState(false);
+    const [lastNameError,setLastNameError]=useState(false);
+    const [emailError,setEmailError]=useState(false);
+    const [imageError,setImageError]=useState(false);
+    const [phoneError,setPhoneError]=useState(false);
+    const [confirmPasswordError,setConfirmPasswordError]=useState(false);
+    const { register, handleSubmit, formState: { errors },clearErrors,watch,reset } = useForm();
     const watchUserName=watch('username');
+    const confirmPass=watch('confirmPassword');
     const password=watch('password');
     const handleFileChange=(event)=>{
         const file = event.target.files[0];
@@ -32,15 +39,57 @@ const  RegisterMobile = () => {
     }
     const onSubmit = (data) => {
         console.log('Form submitted successfully:', data);
+        reset();
       };
       const oninvalid=(error)=>{
         console.log("Error ",error);
         if(error.password){
-             setPasswordError(true);
+             setPassWordError(true);
         }
+        else{
+            setPassWordError(false);
+        }
+        if(error.confirmPassword){
+            setConfirmPasswordError(true);
+        }
+        else{
+            setConfirmPasswordError(false);
+        }
+        if(error.image){
+                 setImageError(true);
+        }
+        else{
+            setImageError(false);
+        }
+        if(error.lastName){
+                    setLastNameError(true);
+        }
+        else{
+            setLastNameError(false);
+        }
+        if(error.phone){
+                    setPhoneError(true);
+        }
+        else{
+            setPhoneError(false);
+        }
+        if(error.username){
+                          setUserNameError(true);
+        }
+        else{
+            setUserNameError(false);
+        }
+        if(error.email){
+            setEmailError(true);
+        }
+        else{
+            setEmailError(false);
+        }
+
         setShowEmailError(true);
         setTimeout(()=>{
                clearErrors();
+                setPassWordError(false);
                setShowEmailError(false);
         },2000);
       }
@@ -89,7 +138,7 @@ const  RegisterMobile = () => {
                        </div>
                        <div className='w-full h-full bg-sky-100 pt-8 flex flex-col gap-y-6 px-6' >
                           <div className=' w-full h-16 justify-between shadow-xl items-center flex gap-x-2' >
-                              <div className='border-2 relative border-blue-200 w-1/2 rounded-lg h-full flex justify-center items-center bg-white text-gray-600' >
+                              <div className={` ${userNameError ? "border-red-400 border-4":"border-2 border-blue-200"} relative w-1/2 rounded-lg h-full flex justify-center items-center bg-white text-gray-600`} >
                                 <img src={fNameImage} className='w-5 h-5 absolute left-0' alt="" />
                                 <input
                                 autoComplete='off'
@@ -97,7 +146,7 @@ const  RegisterMobile = () => {
                                 placeholder={` ${!showEmailError ? "First Name":""}`} type="text" className='text-start w-full h-full pl-6' />
                                  {errors.username && showEmailError && <p className="text-red-500 animate-fadeIn text-sm absolute left-6">{errors.username.message}</p>}
                               </div>
-                              <div className='border-2 relative border-blue-200 w-1/2  rounded-lg h-full flex justify-center items-center bg-white text-gray-600' >
+                              <div className={` ${lastNameError ? "border-red-400 border-4":"border-2 border-blue-200"}  relative w-1/2  rounded-lg h-full flex justify-center items-center bg-white text-gray-600`} >
                               <img src={lNameImage} className='w-5 h-5 absolute left-0' alt="" />
                               <input
                                {...register('lastName', { required: 'Last Name Required' })}
@@ -105,7 +154,7 @@ const  RegisterMobile = () => {
                                 {errors.lastName && showEmailError && <p className="text-red-500 animate-fadeIn text-sm absolute left-6">{errors.lastName.message}</p>}
                               </div>
                           </div>
-                          <div className='w-full relative h-12 bg-white rounded-lg flex justify-start items-center border-2 border-gray-500 shadow-xl' >
+                          <div className={` ${emailError ? "border-4 border-red-300":"border-2 border-gray-500"} w-full relative h-12 bg-white rounded-lg flex justify-start items-center shadow-xl`} >
                           <img src={emailImage} className='w-5 h-5 absolute left-2' alt="" />
                           <input
                           {...register('email', {
@@ -118,13 +167,13 @@ const  RegisterMobile = () => {
                           placeholder={` ${!showEmailError ? "E-mail":""} `} type="text" className='text-start w-full h-full pl-8'  />
                            {errors.email && showEmailError && <p className='absolute left-8 animate-fadeIn' style={{ color: 'red' }}>{errors.email.message}</p>}
                           </div>
-                          <div className='w-full relative h-12 bg-white rounded-lg flex justify-start items-center border-2 border-gray-500 shadow-xl' >
+                          <div className={` ${passWordError ? "border-red-500 border-4 bg-red-100":"border-gray-500 border-2 bg-white"} w-full relative h-12 rounded-lg flex justify-start items-center shadow-xl`} >
                           <img src={passwordImage} className='w-5 h-5 absolute left-2' alt="" />
                           <input
         type={showPassword ? "text" : "password"}
         placeholder={` ${!showEmailError ? "Password":""} `} 
         value={passWordError ? "":password}
-        className={` ${passWordError ? "border-red-300":"border-gray-300"} text-start w-full h-12 pl-8 pr-12 border  rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+        className={` ${passWordError ? "border-red-300":"border-gray-300"} text-start w-full h-12 pl-8 pr-12 border-2  rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
         {...register('password', {
             required: 'Password is required',
             minLength: {
@@ -149,7 +198,7 @@ const  RegisterMobile = () => {
         )}
       </button>
                           </div>
-                          <div className='w-full relative h-12 bg-white rounded-lg flex justify-start items-center border-2 border-gray-500 shadow-[0_8px_8px_rgba(0,0,0,0.1)]' >
+                          <div className={`  ${confirmPasswordError ? "border-4 border-red-300":"border-2 border-gray-500"} w-full relative h-12 bg-white rounded-lg flex justify-start items-center shadow-[0_8px_8px_rgba(0,0,0,0.1)]`} >
                           <img src={passwordImage} className='w-5 h-5 absolute left-2' alt="" />
                           <input
                             {...register('confirmPassword', {
@@ -157,10 +206,11 @@ const  RegisterMobile = () => {
                                 validate: (value) =>
                                   value === password || 'Passwords do not match',
                               })}
+                              value={confirmPasswordError ? "":confirmPass}
                               placeholder={` ${!showEmailError ? "Confirm Password":""} `} type="password" className='text-start w-full h-full pl-8' />
                            {errors.confirmPassword && showEmailError && <p className='absolute left-8 animate-fadeIn' >{errors.confirmPassword.message}</p>}
                           </div>
-                          <div className='w-full h-12 relative bg-white rounded-lg flex justify-start items-center border-2 border-gray-500 shadow-xl' >
+                          <div className={`w-full h-12 relative bg-white rounded-lg flex justify-start items-center ${phoneError ? "border-4 border-red-300":"border-2 border-gray-500"} shadow-xl `} >
                           <img src={phoneImage} className='w-5 h-5 absolute left-2' alt="" />
                           <input 
                            {...register('phone', {
@@ -201,7 +251,7 @@ const  RegisterMobile = () => {
       file:bg-violet-50 file:text-violet-700
       hover:file:bg-violet-100
     "/>
-    {errors.image && showEmailError && <p className='animate-fadeIn' >{errors.image.message}</p>}
+    {errors.image && showEmailError && <p className={'animate-fadeIn text-red-300'} >{errors.image.message}</p>}
 
   </label>
 </form>
