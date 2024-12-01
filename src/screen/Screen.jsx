@@ -6,8 +6,9 @@ const ScreenSize = () => {
   const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const isLargeMobile=useMediaQuery({minHeight:700});
+  const smallHeightMobile=useMediaQuery({maxHeight:680});
 
-   return {isDesktop,isLargeMobile,isMobile,isTablet,isDesktopLarge}
+   return {isDesktop,isLargeMobile,isMobile,isTablet,isDesktopLarge,smallHeightMobile}
 };
 
 export default ScreenSize;

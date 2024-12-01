@@ -11,7 +11,7 @@ import fNameImage from './images/user.png';
 import lNameImage from './images/father.png';
 
 const  RegisterMobile = () => {
-    const {isLargeMobile,isDesktop,isMobile,isTablet,isDesktopLarge}=ScreenSize();
+    const {isLargeMobile,isDesktop,isMobile,isTablet,isDesktopLarge,smallHeightMobile}=ScreenSize();
     const [previewUrl,setPreviewURL]=useState("");
     const [showPassword,setShowPassword]=useState(false);
     const [reRender,setReRender]=useState(0);
@@ -27,6 +27,7 @@ const  RegisterMobile = () => {
     const watchUserName=watch('username');
     const confirmPass=watch('confirmPassword');
     const password=watch('password');
+    const email=watch('email');
     const handleFileChange=(event)=>{
         const file = event.target.files[0];
         if (file) {
@@ -43,6 +44,14 @@ const  RegisterMobile = () => {
       };
       const oninvalid=(error)=>{
         console.log("Error ",error);
+       
+        if(error.username){
+            setUserNameError(true);
+        
+}
+else{
+setUserNameError(false);
+}
         if(error.password){
              setPassWordError(true);
         }
@@ -73,25 +82,22 @@ const  RegisterMobile = () => {
         else{
             setPhoneError(false);
         }
-        if(error.username){
-                          setUserNameError(true);
-        }
-        else{
-            setUserNameError(false);
-        }
+       
         if(error.email){
             setEmailError(true);
         }
         else{
             setEmailError(false);
         }
-
         setShowEmailError(true);
         setTimeout(()=>{
                clearErrors();
                 setPassWordError(false);
+                setEmailError(false);
                setShowEmailError(false);
         },2000);
+
+      
       }
     //   useEffect(()=>{
     //     if(Object.keys(errors).length > 0){
@@ -127,16 +133,16 @@ const  RegisterMobile = () => {
         return true;
       };
     return (
-        <div className={` ${isDesktop ? "":""} ${isMobile && !isLargeMobile ? "p-6":""} ${isLargeMobile ? "py-28 px-6":""}  h-screen ${previewUrl == "" ? "bg-blue-200":""} animate-slideLeft relative flex justify-center items-center `} >
+        <div className={` ${isDesktop ? "":""} ${isMobile && !isLargeMobile ? "px-6 py-2":""} ${isLargeMobile ? "py-28 px-6":""}  min-h-screen ${previewUrl == "" ? "bg-blue-200":""} animate-slideLeft relative flex justify-center items-center `} >
             <img src={previewUrl == "" ? null:previewUrl} className={`${previewUrl == "" ? "hidden":"absolute w-full h-auto z-0 "}`} alt="" />
             <form onSubmit={handleSubmit(onSubmit,oninvalid)} className='w-full h-full'>
 
            
-                   <div className={` ${isDesktopLarge ? "w-1/3":""} ${isDesktop && !isDesktopLarge ? "w-2/3":""} ${isTablet ? "w-2/3":""} ${isMobile ? "w-full":""} h-full relative z-20  flex flex-col justify-start items-start px-4 mt-10`} >
+                   <div className={` ${isDesktopLarge ? "w-1/3 mt-10":""} ${isDesktop && !isDesktopLarge ? "w-2/3 mt-10":""} ${isTablet ? "w-2/3 mt-10":""} ${smallHeightMobile ? "mt-4 ":"mt-10"}  ${isMobile ? "w-full":""} h-full relative z-20  flex flex-col justify-start items-center ${smallHeightMobile ? "px-2":"px-4"}`} >
                        <div className='w-1/2 bg-sky-100 h-10 relative rounded-t-twelve' >
                           <img src={ previewUrl == ""? avatarImage:previewUrl} className='w-20 max-h-24 shadow-2xl absolute left-6 -top-6 border-8 border-blue-400' alt="" />
                        </div>
-                       <div className='w-full h-full bg-sky-100 pt-8 flex flex-col gap-y-6 px-6' >
+                       <div className={` ${smallHeightMobile ? "gap-y-4":"gap-y-6 h-full"} w-full bg-sky-100 pt-8 flex flex-col px-6`} >
                           <div className=' w-full h-16 justify-between shadow-xl items-center flex gap-x-2' >
                               <div className={` ${userNameError ? "border-red-400 border-4":"border-2 border-blue-200"} relative w-1/2 rounded-lg h-full flex justify-center items-center bg-white text-gray-600`} >
                                 <img src={fNameImage} className='w-5 h-5 absolute left-0' alt="" />
@@ -157,6 +163,7 @@ const  RegisterMobile = () => {
                           <div className={` ${emailError ? "border-4 border-red-300":"border-2 border-gray-500"} w-full relative h-12 bg-white rounded-lg flex justify-start items-center shadow-xl`} >
                           <img src={emailImage} className='w-5 h-5 absolute left-2' alt="" />
                           <input
+                          value={emailError ? "":email}
                           {...register('email', {
                             required: 'Email is required', // Make email field required
                             pattern: {
