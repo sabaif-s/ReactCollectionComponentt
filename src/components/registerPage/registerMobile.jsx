@@ -22,6 +22,7 @@ const  RegisterMobile = () => {
     const [emailError,setEmailError]=useState(false);
     const [imageError,setImageError]=useState(false);
     const [phoneError,setPhoneError]=useState(false);
+    const [newPhoneInput,setNewPhoneInput]=useState(false);
     const [confirmPasswordError,setConfirmPasswordError]=useState(false);
     const { register, handleSubmit, formState: { errors },clearErrors,watch,reset } = useForm();
     const watchUserName=watch('username');
