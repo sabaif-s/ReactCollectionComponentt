@@ -15,6 +15,7 @@ const  RegisterMobile = () => {
     const [previewUrl,setPreviewURL]=useState("");
     const [showPassword,setShowPassword]=useState(false);
     const [reRender,setReRender]=useState(0);
+    const [showNewInput,setShowNewInput]=useState(false);
     const [showEmailError,setShowEmailError]=useState(false);
     const [passWordError,setPassWordError]=useState(false);
     const [userNameError,setUserNameError]=useState(false);
